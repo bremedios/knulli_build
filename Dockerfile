@@ -45,13 +45,17 @@ RUN dpkg --add-architecture i386 && \
 
 
 RUN mkdir -p /home/developer
+RUN mkdir -p /home/developer/build
+RUN mkdir -p /home/developer/toolchains
+
 RUN useradd developer
-RUN chown developer:developer /home/developer
 WORKDIR /home/developer
 
 COPY build.sh .
 
+RUN chown -R developer:developer /home/developer
+
 USER developer
 
-CMD ["/usr/bin/bash"]
+#CMD ["/home/developer/build.sh h700"]
 

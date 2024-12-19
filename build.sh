@@ -17,7 +17,12 @@ if [ "$TARGET" != "h700" ] && [ "$TARGET" != "a133" ] ; then
 fi
 
 
-RUN git clone https://github.com/knulli-cfw/distribution.git
+#
+# 
+#
+cd build
+
+git clone https://github.com/knulli-cfw/distribution.git
 
 cd distribution
 git submodule init
