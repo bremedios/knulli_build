@@ -61,6 +61,8 @@ else
     
     cd $CWD/build
 fi
+    
+cd distribution
 
 git checkout $BRANCH
 
@@ -68,8 +70,6 @@ if [ $? -ne 0 ] ; then
     echo "git checkout failed for: $REPO: $BRANCH"
     exit 1
 fi
-    
-cd distribution
 
 if [ $? -ne 0 ] ; then
     echo "Failed to change to folder 'distribution'"
