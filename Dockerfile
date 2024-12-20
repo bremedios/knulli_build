@@ -53,6 +53,8 @@ WORKDIR /home/developer
 
 COPY build.sh .
 COPY start.sh .
+COPY start_h700.sh .
+COPY start_a133.sh .
 
 RUN chown -R developer:developer /home/developer
 
