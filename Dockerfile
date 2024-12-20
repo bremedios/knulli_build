@@ -52,10 +52,11 @@ RUN useradd developer
 WORKDIR /home/developer
 
 COPY build.sh .
+COPY start.sh .
 
 RUN chown -R developer:developer /home/developer
 
 USER developer
 
-#CMD ["/home/developer/build.sh h700"]
+CMD ["/home/developer/start.sh"]
 
