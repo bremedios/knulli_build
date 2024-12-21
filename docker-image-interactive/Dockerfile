@@ -47,6 +47,7 @@ RUN dpkg --add-architecture i386 && \
 RUN mkdir -p /home/developer
 RUN mkdir -p /home/developer/build
 RUN mkdir -p /home/developer/toolchains
+RUN mkdir -p /home/developer/.buildroot-ccache
 
 RUN useradd developer
 WORKDIR /home/developer
