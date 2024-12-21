@@ -14,6 +14,9 @@ services:
         source: knulli_buildroot_cache-r16
         target: /home/developer/.buildroot-ccache
       - type: bind
+        source: ./keys.txt
+        target: /home/developer/keys.txt
+      - type: bind
         source: ./output
         target: /home/developer/output
     entrypoint: /home/developer/start_r16.sh

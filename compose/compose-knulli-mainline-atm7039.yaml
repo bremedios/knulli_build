@@ -14,6 +14,9 @@ services:
         source: knulli_buildroot_cache-atm7039
         target: /home/developer/.buildroot-ccache
       - type: bind
+        source: ./keys.txt
+        target: /home/developer/keys.txt
+      - type: bind
         source: ./output
         target: /home/developer/output
     entrypoint: /home/developer/start_atm7039.sh

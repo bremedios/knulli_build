@@ -35,6 +35,17 @@ if [ -z $TARGET ] ; then
     exit 1
 fi
 
-echo docker run -it --mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache --mount type=bind,src=./output,target=/home/developer/output bremedios/knulli-build-interactive:latest
+# map our build keys into the system.
+if [ -f keys.txt ] ; then
+    ES_KEYS="-v keys.txt:/home/developer/keys.txt"
+fi
 
-docker run --rm -it --mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache --mount type=bind,src=./output,target=/home/developer/output bremedios/knulli-build-interactive:latest
+echo docker run -it --mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache --mount type=bind,src=./output,target=/home/developer/output $ES_KEYS bremedios/knulli-build-interactive:latest
+
+docker run --rm -it \
+	--mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build \
+    --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains \
+    --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache \
+    --mount type=bind,src=./keys.txt,target=/home/developer/keys.txt \
+    --mount type=bind,src=./output,target=/home/developer/output \
+    bremedios/knulli-build-interactive:latest

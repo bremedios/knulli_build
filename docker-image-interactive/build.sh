@@ -99,6 +99,11 @@ do
     cd $CWD/build/distribution
     echo "Building $TARGET"
     
+    # this may fail if emulation station has not been built yet.
+    if [ -f $CWD/keys.txt ] ; then
+        cp $CWD/keys.txt $CWD/package/batocera/emulationstation/batocera-emulationstation
+    fi
+    
     make DIRECT_BUILD=1 $TARGET-build
     MAKE_RESULT=$?
     
