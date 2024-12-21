@@ -17,19 +17,24 @@ if [ $# -lt 1 ] ; then
     exit 1
 fi
 
+# Check to see if our requested target is in our list of allowed target
+ALLOWED_TARGETS=( "a133" "atm7039" "h700" "r16" "rk3128" "rk3566" "rk3568" "sm8250" )
 TARGETS=()
 
 #   Make sure all of our targets are valid
 for arg in "$@"
 do
-    if [ "$arg" == "h700" ] ; then
-        echo "Adding target $arg (h700)"
-        TARGETS+=( $arg )
-    elif [ "$arg" == "a133" ] ; then
-        TARGETS+=( $arg )
-        echo "Adding target $arg (a133)"
-    else
-        echo "Invalid target $arg."
+    TARGET=
+    
+    for OPT in ${ALLOWED_TARGETS[@]}; do
+        if [ "$OPT" == $arg ] ; then
+            echo "Adding target $arg"
+            TARGETS+=( $arg )
+        fi
+    done
+
+    if [ -z $TARGET ] ; then
+        echo "Unrecognized target $arg"
         exit 1
     fi
 done
