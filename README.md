@@ -25,7 +25,7 @@ There is no support for any software compiled against this tree as this tree is 
 | ------------ | --------------- | ------- | -------- |
 | Anbernic     | RG28XX          | h700    | Compiles |
 | Anbernic     | RG34XX          | h700    | Compiles |
-| Anbernic     | RG35XX Original | atm7039 |          |
+| Anbernic     | RG35XX Original | atm7039 | Does not compile |
 | Anbernic     | RG35XX Plus     | h700    | Compiles |
 | Anbernic | RG35XX SP | h700 | Compiles |
 | Anbernic     | RG35XX H        | h700    | Compiles |
