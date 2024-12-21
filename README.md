@@ -32,14 +32,14 @@ There is no support for any software compiled against this tree as this tree is 
 | Anbernic     | RG35XX 2024     | h700    | Compiles |
 | Anbernic     | RG40XX H        | h700    | Compiles |
 | Anbernic     | RG40XX V        | h700    | Compiles |
-| Anbernic     | AG-Arc-S        | rk3566  |          |
+| Anbernic     | AG-Arc-S        | rk3566  | Does not compile |
 | Anbernic     | RG-CubeXX       | h700    | Compiles |
 | Anbernic     | RGXX3           | rk3568  |          |
 | Powkiddy     | a12             | rk3128  |          |
 | Powkiddy     | a13             | rk3128  |          |
-| Powkiddy     | RGB30           | rk3566  |          |
+| Powkiddy     | RGB30           | rk3566  | Does not compile |
 | Powkiddy     | RGB30           | rk3568  |          |
-| Powkiddy     | x55             | rk3566  |          |
+| Powkiddy     | x55             | rk3566  | Does not compile |
 | Trim UI      | Brick           | a133    |          |
 | Trim UI      | Smart Pro       | a133    |          |
 | Miyoo        | A30             | r16     |          |
