@@ -59,6 +59,3 @@ COPY start_a133.sh .
 RUN chown -R developer:developer /home/developer
 
 USER developer
-
-CMD ["/home/developer/start.sh"]
-

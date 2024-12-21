@@ -12,8 +12,8 @@ fi
 if [ $# -lt 1 ] ; then
     echo "Usage: build.sh <platform>"
     echo "    platforms"
-    echo "        h700 - RG35XX 20224, RG35XX Plus, RG35XX-H, RG40XX-V, RG40XX-H, RG-CubeXX"
-    echo "        a133 - TrimUi Brick, TrimUi Smart Pro"
+    echo "        h700 - Anbernic RG28XX, RG35XX 2024, RG35XX Plus, RG35XX-H, RG40XX-V, RG40XX-H, RG-CubeXX"
+    echo "        a133 - TrimUi Brick, Smart Pro"
     exit 1
 fi
 
@@ -90,9 +90,13 @@ if [ $? -ne 0 ] ; then
     exit 1
 fi
 
+cd $CWD
+rm -rf output/*
+    
 # build each target
 for TARGET in ${TARGETS[@]};
 do
+    cd $CWD/build/distribution
     echo "Building $TARGET"
     
     make DIRECT_BUILD=1 $TARGET-build
@@ -109,8 +113,6 @@ do
         echo "Failed to change to directory $CWD"
         exit 1
     fi
-    
-    rm -rf output/*
     
     # Copy out all device images
     mkdir -p output/
@@ -145,7 +147,6 @@ do
     cd toolchains
     
     echo "Archiving toolchain for $TARGET"
-    rm -f $CWD/output/toolchains/toolchain-$TARGET.tar.bz2
     mkdir -p $CWD/output/toolchains
     tar -c $TARGET -jf $CWD/output/toolchains/toolchain-$TARGET.tar.bz2
     
