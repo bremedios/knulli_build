@@ -1,0 +1,21 @@
+name: knulli-build
+
+services:
+  knulli:
+    image: bremedios/knulli-build:latest
+    volumes:
+      - type: volume
+        source: knulli_build-a133
+        target: /home/developer/build
+      - type: volume
+        source: knulli_toolchain-a133
+        target: /home/developer/toolchains
+      - type: bind
+        source: ./output
+        target: /home/developer/output
+    entrypoint: /home/developer/start_a133.sh
+volumes:
+  knulli_build-a133:
+    name: knulli_build-a133
+  knulli_toolchain-a133:
+    name: knulli_toolchain-a133

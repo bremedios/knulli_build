@@ -1,0 +1,21 @@
+name: knulli-build
+
+services:
+  knulli:
+    image: bremedios/knulli-build:latest
+    volumes:
+      - type: volume
+        source: knulli_build-h700
+        target: /home/developer/build
+      - type: volume
+        source: knulli_toolchain-h700
+        target: /home/developer/toolchains
+      - type: bind
+        source: ./output
+        target: /home/developer/output
+    entrypoint: /home/developer/start_h700.sh
+volumes:
+  knulli_build-h700:
+    name: knulli_build-h700
+  knulli_toolchain-h700:
+    name: knulli_toolchain-h700

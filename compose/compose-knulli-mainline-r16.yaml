@@ -1,0 +1,21 @@
+name: knulli-build
+
+services:
+  knulli:
+    image: bremedios/knulli-build:latest
+    volumes:
+      - type: volume
+        source: knulli_build-r16
+        target: /home/developer/build
+      - type: volume
+        source: knulli_toolchain-r16
+        target: /home/developer/toolchains
+      - type: bind
+        source: ./output
+        target: /home/developer/output
+    entrypoint: /home/developer/start_r16.sh
+volumes:
+  knulli_build-r16:
+    name: knulli_build-r16
+  knulli_toolchain-r16:
+    name: knulli_toolchain-r16

@@ -5,17 +5,17 @@ services:
     image: bremedios/knulli-build:latest
     volumes:
       - type: volume
-        source: knulli_build-h700
+        source: knulli_build-sm8250
         target: /home/developer/build
       - type: volume
-        source: knulli_toolchain-h700
+        source: knulli_toolchain-sm8250
         target: /home/developer/toolchains
       - type: bind
         source: ./output
         target: /home/developer/output
-    entrypoint: /home/developer/start_h700.sh
+    entrypoint: /home/developer/start_sm8250.sh
 volumes:
-  knulli_build:
-    name: knulli_build-h700
-  knulli_toolchain:
-    name: knulli_toolchain-h700
+  knulli_build-sm8250:
+    name: knulli_build-sm8250
+  knulli_toolchain-sm8250:
+    name: knulli_toolchain-sm8250

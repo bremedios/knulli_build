@@ -1,0 +1,21 @@
+name: knulli-build
+
+services:
+  knulli:
+    image: bremedios/knulli-build:latest
+    volumes:
+      - type: volume
+        source: knulli_build-atm7039
+        target: /home/developer/build
+      - type: volume
+        source: knulli_toolchain-atm7039
+        target: /home/developer/toolchains
+      - type: bind
+        source: ./output
+        target: /home/developer/output
+    entrypoint: /home/developer/start_atm7039.sh
+volumes:
+  knulli_build-atm7039:
+    name: knulli_build-atm7039
+  knulli_toolchain-atm7039:
+    name: knulli_toolchain-atm7039

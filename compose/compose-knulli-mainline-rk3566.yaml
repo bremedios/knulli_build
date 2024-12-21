@@ -5,16 +5,17 @@ services:
     image: bremedios/knulli-build:latest
     volumes:
       - type: volume
-        source: knulli_build
+        source: knulli_build-rk3566
         target: /home/developer/build
       - type: volume
-        source: knulli_toolchain
+        source: knulli_toolchain-rk3566
         target: /home/developer/toolchains
       - type: bind
         source: ./output
         target: /home/developer/output
+    entrypoint: /home/developer/start_rk3566.sh
 volumes:
-  knulli_build:
-    name: knulli_build
-  knulli_toolchain:
-    name: knulli_toolchain
+  knulli_build-rk3566:
+    name: knulli_build-rk3566
+  knulli_toolchain-rk3566:
+    name: knulli_toolchain-rk3566
