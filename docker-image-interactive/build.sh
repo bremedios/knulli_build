@@ -30,6 +30,7 @@ do
         if [ "$OPT" == $arg ] ; then
             echo "Adding target $arg"
             TARGETS+=( $arg )
+            TARGET=$arg
         fi
     done
 
