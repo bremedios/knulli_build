@@ -40,5 +40,5 @@ echo "Creating symbolic link between compose/compose-knulli-mainline-$TARGET.yam
 rm -f compose.yaml
 ln -s compose/compose-knulli-mainline-$TARGET.yaml compose.yaml
 
-#docker compose up
+docker compose up
 
