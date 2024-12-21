@@ -10,6 +10,9 @@ services:
       - type: volume
         source: knulli_toolchain-sm8250
         target: /home/developer/toolchains
+      - type: volume
+        source: knulli_buildroot_cache-sm8250
+        target: /home/developer/.buildroot-ccache
       - type: bind
         source: ./output
         target: /home/developer/output
@@ -19,3 +22,5 @@ volumes:
     name: knulli_build-sm8250
   knulli_toolchain-sm8250:
     name: knulli_toolchain-sm8250
+  knulli_buildroot_cache-sm8250:
+    name: knulli_buildroot_cache-sm8250

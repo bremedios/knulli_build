@@ -10,6 +10,9 @@ services:
       - type: volume
         source: knulli_toolchain-a133
         target: /home/developer/toolchains
+      - type: volume
+        source: knulli_buildroot_cache-a133
+        target: /home/developer/.buildroot-ccache
       - type: bind
         source: ./output
         target: /home/developer/output
@@ -19,3 +22,5 @@ volumes:
     name: knulli_build-a133
   knulli_toolchain-a133:
     name: knulli_toolchain-a133
+  knulli_buildroot_cache-a133:
+    name: knulli_buildroot_cache-a133

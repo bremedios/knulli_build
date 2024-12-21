@@ -10,6 +10,9 @@ services:
       - type: volume
         source: knulli_toolchain-atm7039
         target: /home/developer/toolchains
+      - type: volume
+        source: knulli_buildroot_cache-atm7039
+        target: /home/developer/.buildroot-ccache
       - type: bind
         source: ./output
         target: /home/developer/output
@@ -19,3 +22,5 @@ volumes:
     name: knulli_build-atm7039
   knulli_toolchain-atm7039:
     name: knulli_toolchain-atm7039
+  knulli_buildroot_cache-atm7039:
+    name: knulli_buildroot_cache-atm7039

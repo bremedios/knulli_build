@@ -10,6 +10,9 @@ services:
       - type: volume
         source: knulli_toolchain-h700
         target: /home/developer/toolchains
+      - type: volume
+        source: knulli_buildroot_cache-h700
+        target: /home/developer/.buildroot-ccache
       - type: bind
         source: ./output
         target: /home/developer/output
@@ -19,3 +22,5 @@ volumes:
     name: knulli_build-h700
   knulli_toolchain-h700:
     name: knulli_toolchain-h700
+  knulli_buildroot_cache-h700:
+    name: knulli_buildroot_cache-h700

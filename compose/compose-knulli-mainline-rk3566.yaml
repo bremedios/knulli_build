@@ -10,6 +10,9 @@ services:
       - type: volume
         source: knulli_toolchain-rk3566
         target: /home/developer/toolchains
+      - type: volume
+        source: knulli_buildroot_cache-rk3566
+        target: /home/developer/.buildroot-ccache
       - type: bind
         source: ./output
         target: /home/developer/output
@@ -19,3 +22,5 @@ volumes:
     name: knulli_build-rk3566
   knulli_toolchain-rk3566:
     name: knulli_toolchain-rk3566
+  knulli_buildroot_cache-rk3566:
+    name: knulli_buildroot_cache-rk3566

@@ -10,6 +10,9 @@ services:
       - type: volume
         source: knulli_toolchain-rk3128
         target: /home/developer/toolchains
+      - type: volume
+        source: knulli_buildroot_cache-rk3128
+        target: /home/developer/.buildroot-ccache
       - type: bind
         source: ./output
         target: /home/developer/output
@@ -19,3 +22,5 @@ volumes:
     name: knulli_build-rk3128
   knulli_toolchain-rk3128:
     name: knulli_toolchain-rk3128
+  knulli_buildroot_cache-rk3128:
+    name: knulli_buildroot_cache-rk3128
