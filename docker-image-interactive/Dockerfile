@@ -53,8 +53,14 @@ WORKDIR /home/developer
 
 COPY build.sh .
 COPY start.sh .
-COPY start_h700.sh .
 COPY start_a133.sh .
+COPY start_atm7039.sh .
+COPY start_h700.sh .
+COPY start_r16.sh .
+COPY start_rk3128.sh .
+COPY start_rk3566.sh .
+COPY start_rk3568.sh .
+COPY start_sm8250.sh .
 
 RUN chown -R developer:developer /home/developer
 
