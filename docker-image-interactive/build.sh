@@ -107,7 +107,7 @@ do
     
     # this may fail if emulation station has not been built yet.
     if [ -f $CWD/keys.txt ] ; then
-        cp $CWD/keys.txt $CWD/package/batocera/emulationstation/batocera-emulationstation
+        cp $CWD/keys.txt $CWD/build/distribution/package/batocera/emulationstation/batocera-emulationstation
     fi
     
     make DIRECT_BUILD=1 $TARGET-build
