@@ -25,21 +25,21 @@ There is no support for any software compiled against this tree as this tree is 
 | ------------ | --------------- | ------- | -------- |
 | Anbernic     | RG28XX          | h700    | Compiles |
 | Anbernic     | RG34XX          | h700    | Compiles |
-| Anbernic     | RG35XX Original | atm7039 | Does not compile |
+| Anbernic     | RG35XX Original | atm7039 | Fails to compile in bluez_utils-5.78 |
 | Anbernic     | RG35XX Plus     | h700    | Compiles |
-| Anbernic | RG35XX SP | h700 | Compiles |
+| Anbernic     | RG35XX SP | h700 | Compiles |
 | Anbernic     | RG35XX H        | h700    | Compiles |
 | Anbernic     | RG35XX 2024     | h700    | Compiles |
 | Anbernic     | RG40XX H        | h700    | Compiles |
 | Anbernic     | RG40XX V        | h700    | Compiles |
-| Anbernic     | AG-Arc-S        | rk3566  | Does not compile |
+| Anbernic     | AG-Arc-S        | rk3566  | Not produced with RK3566 build |
 | Anbernic     | RG-CubeXX       | h700    | Compiles |
-| Anbernic     | RGXX3           | rk3568  |  Does not compile|
-| Powkiddy     | a12             | rk3128  |          |
-| Powkiddy     | a13             | rk3128  |          |
-| Powkiddy     | RGB30           | rk3566  | Does not compile |
-| Powkiddy     | RGB30           | rk3568  |Does not compile|
-| Powkiddy     | x55             | rk3566  | Does not compile |
+| Anbernic     | RGXX3           | rk3568  ||
+| Powkiddy     | a12             | rk3128  ||
+| Powkiddy     | a13             | rk3128  ||
+| Powkiddy     | RGB30           | rk3566  |  |
+| Powkiddy     | RGB30           | rk3568  ||
+| Powkiddy     | x55             | rk3566  | Compiles |
 | Trim UI      | Brick           | a133    |          |
 | Trim UI      | Smart Pro       | a133    |          |
 | Miyoo        | A30             | r16     |          |
