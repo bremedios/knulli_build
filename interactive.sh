@@ -14,7 +14,13 @@ usage () {
     echo "        sm8250"
 }
 
-if [ $# -ne 1 ] ; then
+BUILD_BIND=0
+
+if [ $# -eq 2 ] ; then
+    if [ "$2" == "--build-bind" ] ; then
+        BUILD_BIND=1
+    fi
+elif [ $# -ne 1 ] ; then
     usage
     exit 1
 fi
@@ -40,10 +46,24 @@ if [ -f keys.txt ] ; then
     ES_KEYS="-v keys.txt:/home/developer/keys.txt"
 fi
 
-echo docker run -it --mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache --mount type=bind,src=./output,target=/home/developer/output $ES_KEYS bremedios/knulli-build-interactive:latest
+if [ $BUILD_BIND -eq 0 ] ; then
+    MOUNT_BUILD="--mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build"
+else
+    MOUNT_BUILD="--mount type=bind,src=./build-$TARGET,target=/home/developer/build"
+    mkdir -p ./build-$TARGET
+fi
+
+echo "docker run -it \\"
+echo "    $MOUNT_BUILD \\"
+echo "    --mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build \\"
+echo "    --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains \\"
+echo "    --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache \\"
+echo "    --mount type=bind,src=./keys.txt,target=/home/developer/keys.txt \\"
+echo "    --mount type=bind,src=./output,target=/home/developer/output \\"
+echo "    bremedios/knulli-build-interactive:latest"
 
 docker run --rm -it \
-	--mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build \
+	$MOUNT_BUILD \
     --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains \
     --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache \
     --mount type=bind,src=./keys.txt,target=/home/developer/keys.txt \
