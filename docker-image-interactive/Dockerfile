@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386 && \
     apt update && \
@@ -59,11 +59,14 @@ ENV TZ=Europe/Paris
 ENV FORCE_UNSAFE_CONFIGURE=1
 
 RUN mkdir -p /home/ubuntu
-RUN mkdir -p /home/ubuntu/build
+#RUN mkdir -p /home/ubuntu/build
 RUN mkdir -p /home/ubuntu/toolchains
 RUN mkdir -p /home/ubuntu/.buildroot-ccache
+RUN mkdir -p /build
 
 WORKDIR /home/ubuntu
+
+RUN useradd ubuntu
 
 COPY build.sh .
 COPY start.sh .
@@ -77,5 +80,6 @@ COPY start_rk3568.sh .
 COPY start_sm8250.sh .
 
 RUN chown -R ubuntu:ubuntu /home/ubuntu
+RUN chown -R ubuntu:ubuntu /build
 
 USER ubuntu
