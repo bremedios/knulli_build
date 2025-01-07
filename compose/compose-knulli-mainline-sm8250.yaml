@@ -6,20 +6,20 @@ services:
     volumes:
       - type: volume
         source: knulli_build-sm8250
-        target: /home/developer/build
+        target: /build
       - type: volume
         source: knulli_toolchain-sm8250
-        target: /home/developer/toolchains
+        target: /home/ubuntu/toolchains
       - type: volume
         source: knulli_buildroot_cache-sm8250
-        target: /home/developer/.buildroot-ccache
+        target: /home/ubuntu/.buildroot-ccache
       - type: bind
         source: ./keys.txt
-        target: /home/developer/keys.txt
+        target: /home/ubuntu/keys.txt
       - type: bind
         source: ./output
-        target: /home/developer/output
-    entrypoint: /home/developer/start_sm8250.sh
+        target: /home/ubuntu/output
+    entrypoint: /home/ubuntu/start_sm8250.sh
 volumes:
   knulli_build-sm8250:
     name: knulli_build-sm8250

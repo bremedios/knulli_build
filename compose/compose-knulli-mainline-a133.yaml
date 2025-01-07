@@ -6,20 +6,20 @@ services:
     volumes:
       - type: volume
         source: knulli_build-a133
-        target: /home/developer/build
+        target: /build
       - type: volume
         source: knulli_toolchain-a133
-        target: /home/developer/toolchains
+        target: /home/ubuntu/toolchains
       - type: volume
         source: knulli_buildroot_cache-a133
-        target: /home/developer/.buildroot-ccache
+        target: /home/ubuntu/.buildroot-ccache
       - type: bind
         source: ./keys.txt
-        target: /home/developer/keys.txt
+        target: /home/ubuntu/keys.txt
       - type: bind
         source: ./output
-        target: /home/developer/output
-    entrypoint: /home/developer/start_a133.sh
+        target: /home/ubuntu/output
+    entrypoint: /home/ubuntu/start_a133.sh
 volumes:
   knulli_build-a133:
     name: knulli_build-a133
