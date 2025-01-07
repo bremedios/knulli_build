@@ -54,7 +54,7 @@ fi
 
 # map our build keys into the system.
 if [ -f keys.txt ] ; then
-    ES_KEYS="-v keys.txt:/home/developer/keys.txt"
+    ES_KEYS="-v keys.txt:/home/ubuntu/keys.txt"
 fi
 
 if [ $BUILD_BIND -eq 0 ] ; then
