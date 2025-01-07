@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/developer
+cd /home/ubuntu
 ./build.sh h700 a133
