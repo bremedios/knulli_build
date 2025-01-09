@@ -77,6 +77,8 @@ echo "    $MOUNT_TOOLCHAIN \\"
 echo "    $MOUNT_BUILDROOT_CACHE \\"
 echo "    $MOUNT_KEYS \\"
 echo "    $MOUNT_OUTPUT \\"
+echo "    $MOUNT_PASSWD \\"
+echo "    $MOUNT_GROUP \\"
 echo "    -u $UID:$GID \\"
 echo "    $DOCKER_IMAGE"
 
