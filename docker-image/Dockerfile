@@ -1,4 +1,4 @@
 FROM bremedios/knulli-build-interactive:latest
 
-ENTRYPOINT ["/home/developer/start.sh"]
+ENTRYPOINT ["/home/ubuntu/start.sh"]
 

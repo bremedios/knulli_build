@@ -1,6 +1,9 @@
 #!/bin/bash
 CWD=`pwd`
 
+
+BUILD_DIR=/build
+
 if [ -z ${REPO} ] ; then
     REPO=https://github.com/knulli-cfw/distribution.git
 fi
@@ -40,23 +43,23 @@ do
     fi
 done
 
-cd build
+cd $BUILD_DIR
 
 if [ $? -ne 0 ] ; then
     echo "Failed to change to folder 'build'"
     exit 1
 fi
 
-if [ ! -d distribution ] ; then
-    echo "git clone $REPO"
-    git clone $REPO
+if [ ! -f $BUILD_DIR/.gitignore ] ; then
+    echo "git clone $REPO" .
+    git clone $REPO $BUILD_DIR
 
     if [ $? -ne 0 ] ; then
         echo "git clone failed for: $REPO"
         exit 1
     fi
 else
-    cd distribution
+    cd $BUILD_DIR
     echo "git pull"
     git pull
 
@@ -64,11 +67,9 @@ else
         echo "git pull failed"
         exit 1
     fi
-    
-    cd $CWD/build
 fi
     
-cd distribution
+cd $BUILD_DIR
 
 git checkout $BRANCH
 
@@ -102,12 +103,12 @@ rm -rf output/*
 # build each target
 for TARGET in ${TARGETS[@]};
 do
-    cd $CWD/build/distribution
+    cd $BUILD_DIR
     echo "Building $TARGET"
     
     # this may fail if emulation station has not been built yet.
     if [ -f $CWD/keys.txt ] ; then
-        cp $CWD/keys.txt $CWD/package/batocera/emulationstation/batocera-emulationstation
+        cp $CWD/keys.txt $BUILD_DIR/package/batocera/emulationstation/batocera-emulationstation
     fi
     
     make DIRECT_BUILD=1 $TARGET-build
@@ -134,7 +135,7 @@ do
     fi
 
     echo "Copying device images"
-    cp -r build/distribution/output/$TARGET/images/knulli/images/* output/
+    cp -r $BUILD_DIR/output/$TARGET/images/knulli/images/* output/
     
     if [ $? -ne 0 ] ; then
         echo "Failed to copy knulli images for $TARGET"
@@ -148,7 +149,7 @@ do
     
     echo "Installing toolchain for $TARGET"
     # Installing toolchain for $TARGET
-    cp -ar build/distribution/output/$TARGET/host toolchains/$TARGET
+    cp -ar $BUILD_DIR/output/$TARGET/host toolchains/$TARGET
     
     if [ $? -ne 0 ] ; then
         echo "Failed to install toolchain for $TARGET"
@@ -168,6 +169,3 @@ do
 done
 
 exit 1
-
-
-

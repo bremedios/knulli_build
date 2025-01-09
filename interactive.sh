@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage () {
-    echo "Usage: knulli-mainline-interactive <TARGET>"
+    echo "Usage: interactive.sh <TARGET> [options]"
     echo ""
     echo "    Valid Targets"
     echo "        a133 (Trim UI Brick, Smart Pro)"
@@ -12,9 +12,25 @@ usage () {
     echo "        rk3566"
     echo "        rk3568"
     echo "        sm8250"
+    echo ""
+    echo "    Options"
+    echo "        --build-bind - Bind build directory instead of using build as a volume"
+
 }
 
-if [ $# -ne 1 ] ; then
+DOCKER_IMAGE=bremedios/knulli-build-interactive:latest
+GID=`id -g`
+
+BUILD_BIND=0
+BUILD_VOLUME=0
+
+if [ $# -eq 2 ] ; then
+    if [ "$2" == "--build-bind" ] ; then
+        BUILD_BIND=1
+    elif [ "$2" == "--build-volume" ] ; then
+        BUILD_VOLUME=1
+    fi
+elif [ $# -ne 1 ] ; then
     usage
     exit 1
 fi
@@ -30,6 +46,7 @@ for OPT in ${ALLOWED_TARGETS[@]}; do
     fi
 done
 
+# If we don't have a target, we cannot proceed
 if [ -z $TARGET ] ; then
     usage
     exit 1
@@ -37,15 +54,45 @@ fi
 
 # map our build keys into the system.
 if [ -f keys.txt ] ; then
-    ES_KEYS="-v keys.txt:/home/developer/keys.txt"
+    ES_KEYS="-v keys.txt:/home/ubuntu/keys.txt"
 fi
 
-echo docker run -it --mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache --mount type=bind,src=./output,target=/home/developer/output $ES_KEYS bremedios/knulli-build-interactive:latest
+if [ $BUILD_BIND -eq 0 ] ; then
+    MOUNT_BUILD="--mount type=volume,src=knulli_build-$TARGET,target=/build"
+else
+    MOUNT_BUILD="--mount type=bind,src=./build-$TARGET,target=/build"
+    mkdir -p ./build-$TARGET
+fi
+
+MOUNT_TOOLCHAIN="--mount type=volume,src=knulli_toolchain-$TARGET,target=/home/ubuntu/toolchains"
+MOUNT_BUILDROOT_CACHE="--mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/ubuntu/.buildroot-ccache"
+MOUNT_KEYS="--mount type=bind,src=./keys.txt,target=/home/ubuntu/keys.txt"
+MOUNT_OUTPUT="--mount type=bind,src=./output-$TARGET,target=/home/ubuntu/output"
+MOUNT_PASSWORD="-v /etc/passwd:/etc/passwd:ro"
+MOUNT_GROUP="-v /etc/group:/etc/group:ro"
+
+echo "docker run --rm -it \\"
+echo "    $MOUNT_BUILD \\"
+echo "    $MOUNT_TOOLCHAIN \\"
+echo "    $MOUNT_BUILDROOT_CACHE \\"
+echo "    $MOUNT_KEYS \\"
+echo "    $MOUNT_OUTPUT \\"
+echo "    $MOUNT_PASSWD \\"
+echo "    $MOUNT_GROUP \\"
+echo "    -u $UID:$GID \\"
+echo "    $DOCKER_IMAGE"
+
+mkdir -p knulli_build-$TARGET
+mkdir -p output-$TARGET
 
 docker run --rm -it \
-	--mount type=volume,src=knulli_build-$TARGET,target=/home/developer/build \
-    --mount type=volume,src=knulli_toolchain-$TARGET,target=/home/developer/toolchains \
-    --mount type=volume,src=knulli_buildroot_cache-$TARGET,target=/home/developer/.buildroot-ccache \
-    --mount type=bind,src=./keys.txt,target=/home/developer/keys.txt \
-    --mount type=bind,src=./output,target=/home/developer/output \
-    bremedios/knulli-build-interactive:latest
+    	$MOUNT_BUILD \
+    $MOUNT_TOOLCHAIN \
+    $MOUNT_BUILDROOT_CACHE \
+    $MOUNT_KEYS \
+    $MOUNT_OUTPUT \
+    $MOUNT_PASSWD \
+    $MOUNT_GROUP \
+    -u $UID:$GID \
+    $DOCKER_IMAGE
+

@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /home/developer
+cd /home/ubuntu
 ./build.sh r16

@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
 ARG DEBIAN_FRONTEND=noninteractive
 RUN dpkg --add-architecture i386 && \
     apt update && \
@@ -43,13 +43,30 @@ RUN dpkg --add-architecture i386 && \
     && apt clean \
     && rm -fr /var/lib/apt/lists/
 
+#
+# this image comes with a user ubuntu
+#
 
-RUN mkdir -p /home/developer
-RUN mkdir -p /home/developer/build
-RUN mkdir -p /home/developer/toolchains
+# Set locale
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+	locale-gen
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
+ENV TZ=Europe/Paris
 
-RUN useradd developer
-WORKDIR /home/developer
+# Workaround host-tar configure error
+ENV FORCE_UNSAFE_CONFIGURE=1
+
+RUN mkdir -p /home/ubuntu
+#RUN mkdir -p /home/ubuntu/build
+RUN mkdir -p /home/ubuntu/toolchains
+RUN mkdir -p /home/ubuntu/.buildroot-ccache
+RUN mkdir -p /build
+
+WORKDIR /home/ubuntu
+
+RUN useradd ubuntu
 
 COPY build.sh .
 COPY start.sh .
@@ -62,6 +79,7 @@ COPY start_rk3566.sh .
 COPY start_rk3568.sh .
 COPY start_sm8250.sh .
 
-RUN chown -R developer:developer /home/developer
+RUN chown -R ubuntu:ubuntu /home/ubuntu
+RUN chown -R ubuntu:ubuntu /build
 
-USER developer
+USER ubuntu
